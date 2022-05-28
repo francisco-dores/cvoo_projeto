@@ -80,9 +80,11 @@ end
 % deriv.xu -g*cond_ini.tt0;
 % -deriv.zu/cond_ini.u0 0];
 
+%-w0*g*sin(cond_ini.tt0)/(deriv.zq*cond_ini.u0)-g*cos(cond_ini.tt0)
+
 a_fug=[
-deriv.xu -g*cos(cond_ini.tt0);
--deriv.zu/(deriv.zq+cond_ini.u0) g*sin(cond_ini.tt0)/(deriv.zq+cond_ini.u0)];
+deriv.xu+deriv.zu*w0/(deriv.zq*cond_ini.u0) -w0*g*sin(cond_ini.tt0)/(deriv.zq*cond_ini.u0)-g*cos(cond_ini.tt0);
+-deriv.zu/(deriv.zq*cond_ini.u0) g*sin(cond_ini.tt0)/(deriv.zq*cond_ini.u0)];
 
 %b=[deriv.xde deriv.xdt;deriv.zde 0;deriv.mde+deriv.mwp*deriv.zde deriv.mdt;0 0];
 %b_fug=[deriv.xde deriv.xdsp;-deriv.zde/cond_ini.u0 -deriv.zdsp/cond_ini.u0];
@@ -93,7 +95,7 @@ damp(a_fug) %fugoide estavel????
 %% Período Curto Aproximado
 
 a_pc=[
-deriv.zw cond_ini.u0;
+deriv.zw/(1-deriv.zwp) cond_ini.u0/(1-deriv.zwp);
 deriv.mw+deriv.mwp*deriv.zw deriv.mq+deriv.mwp*cond_ini.u0];
 
 damp(a_pc)
